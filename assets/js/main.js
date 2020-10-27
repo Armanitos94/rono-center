@@ -172,7 +172,7 @@
   });
 
   // Porfolio isotope and filter
-  $(window).on('load', function() {
+ /* $(window).on('load', function() {
     var portfolioIsotope = $('.portfolio-container').isotope({
       itemSelector: '.portfolio-item',
       layoutMode: 'fitRows'
@@ -200,7 +200,7 @@
     dots: true,
     loop: true,
     items: 1
-  });
+  });*/
 
   // Init AOS
   function aos_init() {
@@ -213,5 +213,48 @@
   $(window).on('load', function() {
     aos_init();
   });
+
+
+  // Testimonials carousel (uses the Owl Carousel library)
+  $(".testimonials-carousel").owlCarousel({
+    autoplay: true,
+    dots: true,
+    loop: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 1
+      },
+      900: {
+        items: 2
+      },
+      1400: {
+        items: 3
+      }
+    }
+  });
+
+  // Send message
+   $('#input-form').one('submit',function(e){
+        var name = encodeURIComponent($('#name').val());
+        var email = encodeURIComponent($('#email').val());
+        var subject = encodeURIComponent($('#subject').val());
+        var message = encodeURIComponent($('#message').val());
+        var q1ID = "entry.685760914";
+        var q2ID = "emailAddress";
+        var q3ID = "entry.1362039645";
+        var q4ID = "entry.1049140378";
+
+
+        var baseURL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeF98hZMppHiX7PtmBFYxtVBSa8ElVJcZrKExHWUf58ipBgww/formResponse?';
+        var submitRef = '&submit=Submit';
+        var submitURL = (baseURL + q1ID + "=" + name + "&" + q2ID + "=" + email + "&" + q3ID + "=" + subject+ "&" + q4ID + "=" + message + submitRef);
+        console.log(submitURL);
+        $(this)[0].action=submitURL;
+        $(this)[0].reset();
+        $(".sent-message").css("display", "block");
+    });
 
 })(jQuery);
