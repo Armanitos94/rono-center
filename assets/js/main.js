@@ -214,28 +214,6 @@
     aos_init();
   });
 
-
-  // Testimonials carousel (uses the Owl Carousel library)
-  $(".testimonials-carousel").owlCarousel({
-    autoplay: true,
-    dots: true,
-    loop: true,
-    responsive: {
-      0: {
-        items: 1
-      },
-      768: {
-        items: 1
-      },
-      900: {
-        items: 2
-      },
-      1400: {
-        items: 3
-      }
-    }
-  });
-
   // Send message
    $('#input-form').one('submit',function(e){
         var name = encodeURIComponent($('#name').val());
@@ -256,5 +234,54 @@
         $(this)[0].reset();
         $(".sent-message").css("display", "block");
     });
+
+var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pZQ-t9ZDsqPFKxJyXQb2C-GXRz3ZExcXV3MRxrbYFtk/pubhtml';
+
+  function buildHtmlTestimonials(collection, selector) {
+    for (var i = 0; i < collection.length; i++) {
+      var $div = $('<div class="testimonial-wrap"> <div class="testimonial-item"><h3></h3> <h4></h4> <p></p> </div> </div>');
+      
+      $div.select().find("h3").text(collection[i]["name"]);
+            $div.select().find("h4").text(collection[i]["date"]);
+      $div.select().find("p").html('<i class="bx bxs-quote-alt-left quote-icon-left"></i>' + collection[i]["feedback"] + '<i class="bx bxs-quote-alt-right quote-icon-right"></i>');
+      $(selector).append($div);
+    }
+  }
+
+  function init() {
+    Tabletop.init( { key: publicSpreadsheetUrl,
+                     callback: showInfo,
+                     simpleSheet: false } )
+  }
+
+  function showInfo(data, tabletop) {
+    console.log(data);
+    buildHtmlTestimonials(data[Object.keys(data)[0]].elements, "#testimonials-carousel");
+
+    // Testimonials carousel (uses the Owl Carousel library)
+    $(".testimonials-carousel").owlCarousel({
+      autoplay: true,
+      dots: true,
+      loop: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        768: {
+          items: 1
+        },
+        900: {
+          items: 2
+        },
+        1400: {
+          items: 3
+        }
+      }
+    });
+
+  }
+
+  window.addEventListener('DOMContentLoaded', init)
+
 
 })(jQuery);
