@@ -242,7 +242,8 @@ var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pZQ-t9ZDsqPF
       var $div = $('<div class="testimonial-wrap"> <div class="testimonial-item"><h3></h3> <h4></h4> <p></p> </div> </div>');
       
       $div.select().find("h3").text(collection[i]["name"]);
-            $div.select().find("h4").text(collection[i]["date"]);
+      var date = collection[i]["date"];
+      $div.select().find("h4").text(date.substr(0, date.indexOf(' ')));
       $div.select().find("p").html('<i class="bx bxs-quote-alt-left quote-icon-left"></i>' + collection[i]["feedback"] + '<i class="bx bxs-quote-alt-right quote-icon-right"></i>');
       $(selector).append($div);
     }
@@ -283,5 +284,14 @@ var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1pZQ-t9ZDsqPF
 
   window.addEventListener('DOMContentLoaded', init)
 
+  Date.prototype.yyyymmdd = function() {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(),
+          (mm>9 ? '' : '0') + mm,
+          (dd>9 ? '' : '0') + dd
+         ].join('');
+};
 
 })(jQuery);
