@@ -457,7 +457,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   cursor: pointer;
 }
 
-#hero .btn-get-started {
+.btn-get-started {
   font-family: "Raleway", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -475,8 +475,9 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   background: #f90;
 }
 
-#hero .btn-get-started:hover {
+.btn-get-started:hover {
   background: #515769;
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {
